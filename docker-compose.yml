@@ -1,0 +1,27 @@
+version: '2.2'
+
+services:
+  agile-card-generator:
+    image: anh4n/meteor:1.8.1
+    container_name: agile-card-generator
+    mem_limit: 2048M
+    memswap_limit: 2048M
+    volumes:
+      - .:/app
+      - meteor-packages:/root/.meteor/packages
+    ports:
+      - 3000:3000
+    environment:
+      ROOT_URL: ${ROOT_URL}
+      MONGO_URL: ${MONGO_URL:?MONGO_URL must be set}
+      JIRA_URL: ${JIRA_URL:?JIRA_URL must be set}
+      JIRA_API_URL: ${JIRA_API_URL:?JIRA_API_URL must be set}
+      JIRA_USERNAME: ${JIRA_USERNAME:?JIRA_USERNAME must be set}
+      JIRA_PASSWORD: ${JIRA_PASSWORD:?JIRA_PASSWORD must be set}
+      PROXY_URL: ${PROXY_URL}
+    command: ["run"]
+    init: true
+
+volumes:
+  meteor-packages:
+    external: true

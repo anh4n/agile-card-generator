@@ -1,0 +1,92 @@
+{
+  "defaultIssueCell": {
+      "fillColor": "#fff",
+      "alignment": "center",
+      "margin": [
+          0,
+          10,
+          0,
+          10
+      ]
+  },
+  "storyCell": {
+      "fillColor": "#353F6B",
+      "alignment": "center",
+      "margin": [
+          0,
+          10,
+          0,
+          10
+      ],
+      "color": "#FFFFFF"
+  },
+  "technicalCell": {
+      "fillColor": "#DEF7E6",
+      "alignment": "center",
+      "margin": [
+          0,
+          10,
+          0,
+          10
+      ],
+      "color": "#000000"
+  },
+  "bugCell": {
+      "fillColor": "#D9534F",
+      "alignment": "center",
+      "margin": [
+          0,
+          10,
+          0,
+          10
+      ]
+  },
+  "storyDescription": {
+      "fontSize": 8
+  },
+  "storyPoints": {
+      "fontSize": 30,
+      "bold": true,
+      "margin": [
+          0,
+          5,
+          0,
+          0
+      ],
+      "alignment": "center"
+  },
+  "title": {
+      "fontSize": 20,
+      "margin": [
+          0,
+          10,
+          0,
+          0
+      ]
+  },
+  "defaultCell": {
+      "margin": [
+          5,
+          5,
+          5,
+          5
+      ]
+  },
+  "defaultBoldCell": {
+      "margin": [
+          5,
+          5,
+          5,
+          5
+      ],
+      "bold": true
+  },
+  "userCell": {
+      "margin": [
+          5,
+          5,
+          5,
+          45
+      ]
+  }
+}

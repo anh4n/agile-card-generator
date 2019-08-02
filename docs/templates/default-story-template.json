@@ -1,0 +1,108 @@
+{
+  "table": {
+      "widths": [
+          200,
+          50,
+          100,
+          50,
+          "*"
+      ],
+      "body": [
+          [
+              {
+                  "text": "{{ISSUEKEY}}",
+                  "style": "{{ISSUETYPESTYLE}}",
+                  "fontSize": 20
+              },
+              {
+                  "text": "",
+                  "style": "{{ISSUETYPESTYLE}}"
+              },
+              {
+                  "style": "{{ISSUETYPESTYLE}}",
+                  "stack": [
+                      {
+                          "text": "{{ISSUETYPE}}",
+                          "bold": true
+                      },
+                      {
+                          "text": "{{TEAMNAME}}"
+                      }
+                  ]
+              },
+              {
+                  "text": "",
+                  "style": "{{ISSUETYPESTYLE}}"
+              },
+              {
+                  "text": "{{{SPRINT}}}",
+                  "style": "{{ISSUETYPESTYLE}}"
+              }
+          ],
+          [
+              {
+                  "colSpan": 4,
+                  "style": "defaultCell",
+                  "stack": [
+                      {
+                          "text": "{{{STORY_OR_EPIC_TEXT}}}"
+                      },
+                      {
+                          "text": "{{{SUMMARY}}}",
+                          "style": "title"
+                      }
+                  ]
+              },
+              "",
+              "",
+              "",
+              {
+                  "style": "defaultCell",
+                  "stack": [
+                      {
+                          "text": "Story Points:"
+                      },
+                      {
+                          "text": "{{STORYPOINTS}}",
+                          "style": "storyPoints"
+                      }
+                  ]
+              }
+          ],
+          [
+              {
+                  "colSpan": 4,
+                  "stack": [
+                      {
+                          "text": "{{{DESCRIPTION}}}",
+                          "colSpan": 4,
+                          "style": [
+                              "defaultCell",
+                              "storyDescription"
+                          ]
+                      }
+                  ]
+              },
+              "",
+              "",
+              "",
+              {
+                  "stack": [
+                      {
+                          "text": "Assignee:",
+                          "style": "userCell"
+                      },
+                      {
+                          "text": "Review:",
+                          "style": "userCell"
+                      },
+                      {
+                          "text": "Test:",
+                          "style": "userCell"
+                      }
+                  ]
+              }
+          ]
+      ]
+  }
+}
