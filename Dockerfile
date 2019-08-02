@@ -7,6 +7,7 @@ RUN meteor npm install \
 
 FROM node:8.15.1
 
+LABEL MAINTAINER="Andre Hanel"
 LABEL Description="Agile Card Generator"
 
 ENV ROOT_URL http://localhost
@@ -14,7 +15,7 @@ ENV PORT 3000
 
 COPY --from=builder /app/bundle /app
 
-WORKDIR /app/bundle/programs/server
+WORKDIR /app/programs/server
 
 RUN npm install
 
