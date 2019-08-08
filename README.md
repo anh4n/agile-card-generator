@@ -2,7 +2,7 @@
 by André Hanel
 in cooperation with Arvato Bertelsmann and Esprit
 
-Simple Tool to create beautiful Jira Agile Cards in DIN A5 format build on [Meteor](https://www.meteor.com/)
+Simple Tool to create beautiful Jira Agile Cards in DIN A5 format build on [Meteor](https://www.meteor.com/) and [React](https://reactjs.org/)
 
 ![Issue Example](docs/images/issue.png)
 
@@ -10,6 +10,7 @@ Simple Tool to create beautiful Jira Agile Cards in DIN A5 format build on [Mete
 
 - [Docker](https://www.docker.com/)
 - [Meteor](https://www.meteor.com/)
+- [React](https://reactjs.org/)
 - [Mongo DB](https://www.mongodb.com)
 - [PDF Make](http://pdfmake.org)
 - [Handlebars](https://handlebarsjs.com/)
