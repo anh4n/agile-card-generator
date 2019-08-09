@@ -1,16 +1,18 @@
 import React, { useEffect } from 'react';
+import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import Button from 'antd/lib/button';
-import { ModalForm } from '../lib/Form/ModalForm';
 import Form from 'antd/lib/form';
-import { TeamsCollection } from '../../../api/teams/teamsCollection';
-import { withTracker } from 'meteor/react-meteor-data';
 import Row from 'antd/lib/grid/row';
 import Col from 'antd/lib/grid/col';
+
+import { TeamsCollection } from '../../../api/teams/teamsCollection';
+import { ModalForm } from '../lib/Form/ModalForm';
 import { CodeMirror } from '../lib/CodeMirror';
 import { prettyJson, isJsonString } from '../../lib/jsonHelper';
+import { PdfPreview } from './PdfPreview';
 
-const TemplateEditModal = (props) => {
+const TaskEditModal = (props) => {
     const { boardId, team, form, isSubscriptionReady } = props;
     const { getFieldDecorator } = form;
 
@@ -22,17 +24,17 @@ const TemplateEditModal = (props) => {
         form.resetFields();
     }, [boardId]);
 
-    const styles = team.styles ? prettyJson(team.styles) : '';
+    const storyTemplate = team.storyTemplate ? prettyJson(team.storyTemplate) : '';
 
     const onSaveClick = () => {
         return new Promise((resolve, reject) => {
-            form.validateFields((err, { styles }) => {
+            form.validateFields((err, { storyTemplate }) => {
                 if (!err) {
-                    const stylesAsString = JSON.stringify(JSON.parse(styles));
+                    const storyTemplateAsString = JSON.stringify(JSON.parse(storyTemplate));
 
                     Meteor.callPromise('team.upsert', {
                         ...team,
-                        styles: stylesAsString
+                        storyTemplate: storyTemplateAsString
                     }).then(() => {
                         resolve()
                     }).catch((err) => {
@@ -49,15 +51,15 @@ const TemplateEditModal = (props) => {
 
     return (
         <ModalForm
-            title={'Template Styles'}
-            OpenButton={<Button disabled={isDisabled()} icon="edit">Edit Styles</Button>}
+            title={'Story Template'}
+            OpenButton={<Button disabled={isDisabled()} icon="edit">Edit Story Template</Button>}
             width={'90vw'}
             onSave={onSaveClick}
         >
             <Row>
-                <Col xs={24}>
-                    {getFieldDecorator('styles', {
-                        initialValue: styles,
+                <Col xs={24} lg={10}>
+                    {getFieldDecorator('storyTemplate', {
+                        initialValue: storyTemplate,
                         rules: [
                             {
                                 validator: isJsonString,
@@ -66,16 +68,19 @@ const TemplateEditModal = (props) => {
                         ]
                     })(<CodeMirror />)}
                 </Col>
+                <Col xs={24} lg={14}>
+                    <PdfPreview boardId={boardId} value={form.getFieldValue('storyTemplate')} isStory/>
+                </Col>
             </Row>
         </ModalForm>
     );
 };
 
-TemplateEditModal.defaultProps = {
+TaskEditModal.defaultProps = {
     team: {}
 };
 
-TemplateEditModal.propTypes = {
+TaskEditModal.propTypes = {
     team: PropTypes.object
 };
 
@@ -86,4 +91,4 @@ export default withTracker(({ boardId }) => {
         isSubscriptionReady: handle.ready(),
         team: TeamsCollection.findOne({ boardId }),
     };
-})(Form.create({ name: 'template-form' })(TemplateEditModal));
+})(Form.create({ name: 'story-edit-form' })(TaskEditModal));
