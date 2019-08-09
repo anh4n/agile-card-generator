@@ -79,8 +79,15 @@ const getIssueTypeStyle = (issuetype) => {
 };
 
 const getText = (text) => {
-    const lines = text.trim().split(/\r\n|\r|\n/);
-    return lines.join('\\n').replace(/"/g, '\\"');
+    return text.trim()
+        .replace(/[\\]/g, '\\\\')
+        .replace(/[\"]/g, '\\\"')
+        .replace(/[\/]/g, '\\/')
+        .replace(/[\b]/g, '\\b')
+        .replace(/[\f]/g, '\\f')
+        .replace(/[\n]/g, '\\n')
+        .replace(/[\r]/g, '\\r')
+        .replace(/[\t]/g, '\\t');
 };
 
 const isTechnicalTask = (issuetype) => (
