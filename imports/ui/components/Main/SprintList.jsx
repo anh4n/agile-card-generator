@@ -34,6 +34,14 @@ export const SprintList = (props) => {
 
                     setSprints(mappedData);
                     setLoading(false);
+
+                    if (mappedData.length > 0) { // show active sprint as default
+                        const activeSprint = mappedData.filter(sprint => sprint.state === 'active');
+
+                        if (activeSprint.length > 0) {
+                            history.push(`/${boardId}/${activeSprint[0].value}`);
+                        }
+                    }
                 })
                 .catch((err) => {
                     setLoading(false);
