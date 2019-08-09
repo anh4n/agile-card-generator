@@ -25,7 +25,7 @@ export const createPDF = (boardId, issues, teamName) => {
 
     const date = new Date();
 
-    const filename = `Stories_${teamName}_${date.getFullYear()}_${date.getMonth() + 1}_${date.getDate()}.pdf`;
+    const filename = `Issues_${teamName}_${date.getFullYear()}_${date.getMonth() + 1}_${date.getDate()}.pdf`;
 
     return {
         download: () => pdfMake.createPdf(docDefinition).download(filename),
