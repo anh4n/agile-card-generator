@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import Table from 'antd/lib/table';
 import Button from 'antd/lib/button';
@@ -19,7 +19,7 @@ const buildFilter = (issues, field) => {
     }));
 }
 
-const getSearchFilter = (dataIndex, title) => {
+const getSearchFilter = (dataIndex, title, Wrapper = ({children}) => (<Fragment children={children} />)) => {
 
     const [searchText, setSearchText] = useState('');
     let searchInput;
@@ -75,13 +75,15 @@ const getSearchFilter = (dataIndex, title) => {
             }
         },
         render: text => (
-            <Highlighter
-              highlightStyle={{ backgroundColor: '#ffc069', padding: 0 }}
-              searchWords={[searchText]}
-              autoEscape
-              textToHighlight={text.toString()}
-            />
-          ),
+            <Wrapper text={text}>
+                <Highlighter
+                    highlightStyle={{ backgroundColor: '#ffc069', padding: 0 }}
+                    searchWords={[searchText]}
+                    autoEscape
+                    textToHighlight={text.toString()}
+                />
+            </Wrapper>
+        )
     }
 };
 
@@ -117,9 +119,6 @@ export const IssueTable = (props) => {
             title: 'Issue',
             dataIndex: 'issuekey',
             key: 'issuekey',
-            render: issuekey => (
-                <a href={`${jiraUrl}/browse/${issuekey}`} target="_blank">{issuekey}</a>
-            ),
             className: 'min-td',
             sorter: (a, b) => {
                 const aMatch = /[0-9]+/.exec(a.issuekey);
@@ -127,7 +126,9 @@ export const IssueTable = (props) => {
 
                 return aMatch[0] - bMatch[0];
             },
-            ...getSearchFilter('issuekey', 'Issue')
+            ...getSearchFilter('issuekey', 'Issue', ({ text, children }) => (
+                <a href={`${jiraUrl}/browse/${text}`} target="_blank">{children}</a>
+            ))
         },
         {
             title: 'Type',
