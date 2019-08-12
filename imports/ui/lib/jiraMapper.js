@@ -1,4 +1,5 @@
 import Handlebars from './Handlebars';
+import { isJsonString } from './jsonHelper';
 
 export const handlebarsMapper = (issue, index, arr, teamName, storyTemplateString, taskTemplateString) => {
 
@@ -17,11 +18,22 @@ export const handlebarsMapper = (issue, index, arr, teamName, storyTemplateStrin
         STORY_OR_EPIC_TEXT: getEpicOrStory(issue.epic, issue.parent)
     });
 
-    const template = JSON.parse(compiledTemplate);
+    const isValidJson = isJsonString(null, compiledTemplate);
 
-    if (index + 1 < arr.length) {
-        template.pageBreak = 'after';
+    const pageBreak = (index + 1 < arr.length) ? 'after' : 'none';
+
+    if (!isValidJson) {
+        return {
+            text: `Syntax ERROR (${issue.issuekey})`,
+            fontSize: 30,
+            alignment: 'center',
+            color: '#ff0000',
+            pageBreak
+        };
     }
+
+    const template = JSON.parse(compiledTemplate);
+    template.pageBreak = pageBreak;
 
     return template;
 };
@@ -80,14 +92,14 @@ const getIssueTypeStyle = (issuetype) => {
 
 const getText = (text) => {
     return text.trim()
-        .replace(/[\\]/g, '\\\\')
-        .replace(/[\"]/g, '\\\"')
-        .replace(/[\/]/g, '\\/')
-        .replace(/[\b]/g, '\\b')
-        .replace(/[\f]/g, '\\f')
-        .replace(/[\n]/g, '\\n')
-        .replace(/[\r]/g, '\\r')
-        .replace(/[\t]/g, '\\t');
+    .replace(/[\\]/g, '\\\\')
+    .replace(/[\"]/g, '\\\"')
+    .replace(/[\/]/g, '\\/')
+    .replace(/[\b]/g, '\\b')
+    .replace(/[\f]/g, '\\f')
+    .replace(/[\n]/g, '\\n')
+    .replace(/[\r]/g, '\\r')
+    .replace(/[\t]/g, '\\t');
 };
 
 const isTechnicalTask = (issuetype) => (
