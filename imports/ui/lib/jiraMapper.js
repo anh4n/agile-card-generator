@@ -4,27 +4,38 @@ import { isJsonString } from './jsonHelper';
 export const handlebarsMapper = (issue, index, arr, teamName, storyTemplateString, taskTemplateString) => {
 
     const templateString = isTechnicalTask(issue.issuetype) ? taskTemplateString : storyTemplateString;
+    const pageBreak = (index + 1 < arr.length) ? 'after' : 'none';
 
-    const compiledTemplate = Handlebars.compile(templateString)({
-        ISSUEKEY: issue.issuekey,
-        SUMMARY: getText(issue.summary),
-        ISSUETYPE: issue.issuetype,
-        COMPONENTS: issue.components,
-        SPRINT: issue.sprint,
-        STORYPOINTS: new String(issue.storyPoints),
-        TEAMNAME: teamName,
-        ISSUETYPESTYLE: getIssueTypeStyle(issue.issuetype),
-        DESCRIPTION: getText(issue.description),
-        STORY_OR_EPIC_TEXT: getEpicOrStory(issue.epic, issue.parent)
-    });
+    let compiledTemplate;
+
+    try {
+        compiledTemplate = Handlebars.compile(templateString)({
+            ISSUEKEY: issue.issuekey,
+            SUMMARY: getText(issue.summary),
+            ISSUETYPE: issue.issuetype,
+            COMPONENTS: issue.components,
+            SPRINT: issue.sprint,
+            STORYPOINTS: new String(issue.storyPoints),
+            TEAMNAME: teamName,
+            ISSUETYPESTYLE: getIssueTypeStyle(issue.issuetype),
+            DESCRIPTION: getText(issue.description),
+            STORY_OR_EPIC_TEXT: getEpicOrStory(issue.epic, issue.parent)
+        });
+    } catch(err) {
+        return {
+            text: `Syntax ERROR in Template (${issue.issuekey})`,
+            fontSize: 30,
+            alignment: 'center',
+            color: '#ff0000',
+            pageBreak
+        };
+    }
 
     const isValidJson = isJsonString(null, compiledTemplate);
 
-    const pageBreak = (index + 1 < arr.length) ? 'after' : 'none';
-
     if (!isValidJson) {
         return {
-            text: `Syntax ERROR (${issue.issuekey})`,
+            text: `Syntax ERROR in Template (${issue.issuekey})`,
             fontSize: 30,
             alignment: 'center',
             color: '#ff0000',
@@ -92,14 +103,14 @@ const getIssueTypeStyle = (issuetype) => {
 
 const getText = (text) => {
     return text.trim()
-    .replace(/[\\]/g, '\\\\')
-    .replace(/[\"]/g, '\\\"')
-    .replace(/[\/]/g, '\\/')
-    .replace(/[\b]/g, '\\b')
-    .replace(/[\f]/g, '\\f')
-    .replace(/[\n]/g, '\\n')
-    .replace(/[\r]/g, '\\r')
-    .replace(/[\t]/g, '\\t');
+        .replace(/[\\]/g, '\\\\')
+        .replace(/[\"]/g, '\\\"')
+        .replace(/[\/]/g, '\\/')
+        .replace(/[\b]/g, '\\b')
+        .replace(/[\f]/g, '\\f')
+        .replace(/[\n]/g, '\\n')
+        .replace(/[\r]/g, '\\r')
+        .replace(/[\t]/g, '\\t');
 };
 
 const isTechnicalTask = (issuetype) => (

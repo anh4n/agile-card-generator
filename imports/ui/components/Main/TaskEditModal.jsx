@@ -5,6 +5,8 @@ import Button from 'antd/lib/button';
 import Form from 'antd/lib/form';
 import Row from 'antd/lib/grid/row';
 import Col from 'antd/lib/grid/col';
+import Tabs from 'antd/lib/tabs';
+import Icon from 'antd/lib/icon';
 
 import { TeamsCollection } from '../../../api/teams/teamsCollection';
 import { ModalForm } from '../lib/Form/ModalForm';
@@ -25,16 +27,19 @@ const TaskEditModal = (props) => {
     }, [boardId]);
 
     const taskTemplate = team.taskTemplate ? prettyJson(team.taskTemplate) : '';
+    const styles = team.styles ? prettyJson(team.styles) : '';
 
     const onSaveClick = () => {
         return new Promise((resolve, reject) => {
-            form.validateFields((err, { taskTemplate }) => {
+            form.validateFields((err, { taskTemplate, styles }) => {
                 if (!err) {
                     const taskTemplateAsString = JSON.stringify(JSON.parse(taskTemplate));
+                    const stylesAsString = JSON.stringify(JSON.parse(styles));
 
                     Meteor.callPromise('team.upsert', {
                         ...team,
-                        taskTemplate: taskTemplateAsString
+                        taskTemplate: taskTemplateAsString,
+                        styles: stylesAsString
                     }).then(() => {
                         resolve()
                     }).catch((err) => {
@@ -58,18 +63,44 @@ const TaskEditModal = (props) => {
         >
             <Row>
                 <Col xs={24} lg={10}>
-                    {getFieldDecorator('taskTemplate', {
-                        initialValue: taskTemplate,
-                        rules: [
-                            {
-                                validator: isJsonString,
-                                message: 'JSON not valid'
+                    <Tabs>
+                        <Tabs.TabPane
+                            tab={
+                                <span><Icon type="build" />Template</span>
                             }
-                        ]
-                    })(<CodeMirror />)}
+                            key="1"
+                        >
+                            {getFieldDecorator('taskTemplate', {
+                                initialValue: taskTemplate,
+                                rules: [
+                                    {
+                                        validator: isJsonString,
+                                        message: 'JSON not valid'
+                                    }
+                                ]
+                            })(<CodeMirror />)}
+                        </Tabs.TabPane>
+                        <Tabs.TabPane
+                            tab={
+                                <span><Icon type="bg-colors" />Styles</span>
+                            }
+                            key="2"
+                        >
+                            {getFieldDecorator('styles', {
+                                initialValue: styles,
+                                rules: [
+                                    {
+                                        validator: isJsonString,
+                                        message: 'JSON not valid'
+                                    }
+                                ]
+                            })(<CodeMirror />)}
+                        </Tabs.TabPane>
+                    </Tabs>
+
                 </Col>
                 <Col xs={24} lg={14}>
-                    <PdfPreview boardId={boardId} value={form.getFieldValue('taskTemplate')}/>
+                    <PdfPreview boardId={boardId} value={form.getFieldValue('taskTemplate')} styles={form.getFieldValue('styles')} />
                 </Col>
             </Row>
         </ModalForm>

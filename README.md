@@ -87,9 +87,11 @@ Select a sprint and the corresponding issues will be listet.
 
 ### 4. Templates ###
 
-You can edit an issue template by clicking on `Edit Templates`.
+You can edit an issue template by clicking on `Edit Story Templates` or `Edit Task Template`.
 Templates are created with [PDF Make](https://pdfmake.github.io/docs/).
 In the templates you can use [Handlebars](https://handlebarsjs.com/) expressions.
+
+**Plase note**: Story Templates and Task Templates sharing the same styles.
 
 There are some predefined Handlebars expressions and helpers:
 

@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import pdfMake from 'pdfmake';
 import 'pdfmake/build/vfs_fonts';
 
-import { AgileCards } from '../../lib/AgileCards';
 import { handlebarsMapper } from '../../lib/jiraMapper';
+import { isJsonString } from '../../lib/jsonHelper';
 
-export const PdfPreview = ({ value, boardId, isStory }) => {
+export const PdfPreview = ({ value, styles, boardId, isStory }) => {
 
     const [dataUrl, setDataUrl] = useState('');
     let issue = {};
@@ -43,25 +43,37 @@ export const PdfPreview = ({ value, boardId, isStory }) => {
     }
 
     const issues = [issue];
-    const issueTemplate = handlebarsMapper(issue, 0, issues, 'Team 1', value, value);
-    const styles = AgileCards.getStyle(boardId);
+    let issueTemplate = handlebarsMapper(issue, 0, issues, 'Team 1', value, value);
+    let templateStyles = {};
+    const isValidJson = isJsonString(null, styles);
+
+    if (!isValidJson) {
+        issueTemplate ={
+            text: 'Syntax ERROR in Styles',
+            fontSize: 30,
+            alignment: 'center',
+            color: '#ff0000'
+        };
+    } else {
+        templateStyles = JSON.parse(styles);
+    }
 
     const docDefinition = {
         pageSize: 'A5',
         pageOrientation: 'landscape',
         pageMargins: 15,
         content: issueTemplate,
-        styles
+        styles: templateStyles
     };
 
     useEffect(() => {
         pdfMake.createPdf(docDefinition).getDataUrl(url => {
             setDataUrl(url)
         });
-    }, [value]);
+    }, [value, styles]);
 
     return (
-        <iframe width='100%' height='755px' src={dataUrl} />
+        <iframe width='100%' height='815px' src={dataUrl} />
     );
 };
 
@@ -72,8 +84,7 @@ PdfPreview.defaultProps = {
 
 PdfPreview.propTypes = {
     value: PropTypes.string,
+    styles: PropTypes.string,
     boardId: PropTypes.number,
     isStory: PropTypes.bool
 };
-
-

@@ -7,7 +7,6 @@ import Icon from 'antd/lib/icon';
 import Highlighter from 'react-highlight-words';
 
 import { JiraClient } from '../../../api/jira/jiraClient';
-import TemplateEditModal from './TemplateEditModal';
 import { jiraIssueMapper } from '../../lib/jiraMapper';
 import TaskEditModal from './TaskEditModal';
 import StoryEditModal from './StoryEditModal';
@@ -165,8 +164,6 @@ export const IssueTable = (props) => {
                     <StoryEditModal boardId={boardId} />
                     {' '}
                     <TaskEditModal boardId={boardId} />
-                    {' '}
-                    <TemplateEditModal boardId={boardId} />
                 </Fragment>
             )}
             loading={isLoading}
