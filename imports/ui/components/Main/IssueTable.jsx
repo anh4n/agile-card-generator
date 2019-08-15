@@ -1,5 +1,6 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { message } from 'antd';
 import Table from 'antd/lib/table';
 import Button from 'antd/lib/button';
 import Input from 'antd/lib/input';
@@ -104,7 +105,9 @@ export const IssueTable = (props) => {
                     setLoading(false);
                 })
                 .catch((err) => {
+                    setIssues([]);
                     setLoading(false);
+                    message.error('Loading Issues failed');
                 });
         } else {
             setIssues([]);

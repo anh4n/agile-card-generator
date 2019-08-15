@@ -2,9 +2,11 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
 import styled from 'styled-components';
+import { message } from 'antd';
 import List from 'antd/lib/list';
 import Tag from 'antd/lib/tag';
 import classnames from 'classnames';
+
 import { JiraClient } from '../../../api/jira/jiraClient';
 
 const StyledListItem = styled(List.Item)`
@@ -44,7 +46,9 @@ export const SprintList = (props) => {
                     }
                 })
                 .catch((err) => {
+                    setSprints([]);
                     setLoading(false);
+                    message.error('Loading Sprints failed');
                 });
         } else {
             setSprints([]);
