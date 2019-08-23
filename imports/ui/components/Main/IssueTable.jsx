@@ -173,7 +173,7 @@ export const IssueTable = (props) => {
             rowSelection={rowSelection}
             columns={columns}
             dataSource={issues}
-            pagination={{ pageSize: 20 }}
+            pagination={false}
         />
     );
 };
