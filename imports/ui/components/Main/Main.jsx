@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { withTracker } from 'meteor/react-meteor-data';
 import Card from 'antd/lib/card';
 import Button from 'antd/lib/button';
-import Icon from 'antd/lib/icon';
 import Form from 'antd/lib/form';
 
 import TeamSelectBox from './TeamSelectBox';
@@ -48,11 +47,6 @@ const Main = (props) => {
     return (
         <Fragment>
             <Card
-                headStyle={{ backgroundColor: '#e6f7ff' }}
-                title={
-                    <h1 style={{ margin: 0 }}><Icon type={'idcard'} /> Agile Card Generator</h1>
-                }
-                extra={'2.0.0'}
                 actions={[
                     <Button disabled={isNoIssueSelected()} onClick={onDownloadClick}>Download PDF</Button>,
                     <Button disabled={isNoIssueSelected()} onClick={onOpenClick}>Open PDF in new Tab</Button>

@@ -41,7 +41,7 @@ export const SprintList = (props) => {
                         const activeSprint = mappedData.filter(sprint => sprint.state === 'active');
 
                         if (activeSprint.length > 0) {
-                            history.push(`/${boardId}/${activeSprint[0].value}`);
+                            history.push(`/print/${boardId}/${activeSprint[0].value}`);
                         }
                     }
                 })
@@ -57,7 +57,7 @@ export const SprintList = (props) => {
     }, [boardId]);
 
     const onClick = (value, sprintName) => {
-        history.push(`/${boardId}/${value}`);
+        history.push(`/print/${boardId}/${value}`);
     };
 
     const renderSprintStatus = ({ state }) => {

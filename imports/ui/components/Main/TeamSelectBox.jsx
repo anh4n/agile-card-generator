@@ -19,7 +19,7 @@ const TeamSelectBox = (props) => {
     ));
 
     const onTeamChange = (value) => {
-        history.push(`/${value}`);
+        history.push(`/print/${value}`);
     };
 
     return (
