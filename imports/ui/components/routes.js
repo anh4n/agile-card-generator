@@ -1,5 +1,6 @@
 import { MainPage } from '../pages/MainPage';
 import { NotFound } from '../pages/NotFound';
+import { TeamEditPage } from '../pages/TeamEditPage';
 
 export const routes = [
     {
@@ -12,6 +13,11 @@ export const routes = [
         key: 'print',
         path: '/print/:boardId?/:sprintId?',
         component: MainPage
+    },
+    {
+        key: 'teamEdit',
+        path: '/edit/teams',
+        component: TeamEditPage
     },
     {
         key: 'notfound',

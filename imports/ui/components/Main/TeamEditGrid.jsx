@@ -5,8 +5,9 @@ import Button from 'antd/lib/button';
 
 import { Column } from '../lib/Grid/Column';
 import { ModalDataGrid } from '../lib/Grid/ModalDataGrid';
+import DataGrid from '../lib/Grid/DataGrid';
 
-export const TeamEditModal = (props) => {
+export const TeamEditGrid = (props) => {
 
     const { data } = props;
 
@@ -38,10 +39,7 @@ export const TeamEditModal = (props) => {
 
     return (
         <Fragment>
-            <ModalDataGrid
-                title={'Teams'}
-                OpenButton={<Button icon="edit">Edit Teams</Button>}
-                width={'90vw'}
+            <DataGrid
                 idProperty={'_id'}
                 dataSource={data}
                 onRecordCreate={onRecordCreate}
@@ -51,15 +49,15 @@ export const TeamEditModal = (props) => {
                 <Column title={'Name'} dataIndex={'name'} />
                 <Column title={'Board ID'} dataIndex={'boardId'} inputType={'number'} />
                 <Column title={'Project Name'} dataIndex={'projectName'} inputType={'text'} />
-            </ModalDataGrid>
+            </DataGrid>
         </Fragment>
     );
 };
 
-TeamEditModal.defaultProps = {
+TeamEditGrid.defaultProps = {
     data: []
 };
 
-TeamEditModal.propTypes = {
+TeamEditGrid.propTypes = {
     data: PropTypes.array
 };

@@ -5,6 +5,7 @@ import { Route, Switch } from 'react-router';
 import styled from 'styled-components';
 import Layout from 'antd/lib/layout';
 import Icon from 'antd/lib/icon';
+import Col from 'antd/lib/grid/col';
 
 import 'antd/dist/antd.css';
 import './styles.css';
@@ -28,10 +29,6 @@ const Header = styled(Layout.Header)`
     background-color: #e6f7ff !important;
 `;
 
-const Content = styled(Layout.Content)`
-    margin: 15px;
-`;
-
 export const App = () => {
     return (
         <BrowserRouter>
@@ -43,15 +40,17 @@ export const App = () => {
                     </Logo>
                     <NavBar />
                 </Header>
-                <Content>
-                    <Switch>
-                        {
-                            routes.map(route => (
-                                <Route {...route} />
-                            ))
-                        }
-                    </Switch>
-                </Content>
+                <Layout.Content>
+                    <Col>
+                        <Switch>
+                            {
+                                routes.map(route => (
+                                    <Route {...route} />
+                                ))
+                            }
+                        </Switch>
+                    </Col>
+                </Layout.Content>
             </Layout>
         </BrowserRouter>
     );

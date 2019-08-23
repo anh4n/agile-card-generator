@@ -5,9 +5,11 @@ import { withRouter } from 'react-router';
 import { withTracker } from 'meteor/react-meteor-data';
 import Select from 'antd/lib/select';
 import Input from 'antd/lib/input';
+import Button from 'antd/lib/button';
 
 import { TeamsCollection } from '../../../api/teams/teamsCollection'
-import { TeamEditModal } from './TeamEditModal';
+import { TeamEditGrid } from './TeamEditGrid';
+import NavButton from '../lib/NavButton';
 
 const TeamSelectBox = (props) => {
     const { value, history, teams } = props;
@@ -26,13 +28,13 @@ const TeamSelectBox = (props) => {
         <Input.Group compact>
             <Select
                 value={value ? value : undefined}
-                style={{ width: '300px' }}
+                style={{ width: '238px' }}
                 placeholder={'Choose Team'}
                 onChange={onTeamChange}
             >
                 {options}
             </Select>
-            <TeamEditModal data={teams} />
+            <NavButton to='/edit/teams' icon="edit">Edit Teams</NavButton>
         </Input.Group>
     );
 };

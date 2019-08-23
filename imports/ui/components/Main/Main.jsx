@@ -1,7 +1,6 @@
-import React, { Fragment, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { withTracker } from 'meteor/react-meteor-data';
-import Card from 'antd/lib/card';
 import Button from 'antd/lib/button';
 import Form from 'antd/lib/form';
 
@@ -10,6 +9,9 @@ import SprintList from './SprintList';
 import { IssueTable } from './IssueTable';
 import { createPDF } from '../../lib/PDF';
 import { TeamsCollection } from '../../../api/teams/teamsCollection';
+import Row from 'antd/lib/grid/row';
+import Col from 'antd/lib/grid/col';
+import { StyledCard } from '../lib/StyledComponents';
 
 
 const Main = (props) => {
@@ -45,29 +47,42 @@ const Main = (props) => {
     };
 
     return (
-        <Fragment>
-            <Card
-                actions={[
-                    <Button disabled={isNoIssueSelected()} onClick={onDownloadClick}>Download PDF</Button>,
-                    <Button disabled={isNoIssueSelected()} onClick={onOpenClick}>Open PDF in new Tab</Button>
-                ]}
-            >
-                <Form layout={'vertical'}>
-                    <Form.Item>
-                        <legend>Team</legend>
-                        <TeamSelectBox value={boardId} />
-                    </Form.Item>
-                    <Form.Item>
-                        <legend>Sprints</legend>
-                        <SprintList value={sprintId} boardId={boardId} />
-                    </Form.Item>
-                    <Form.Item>
-                        <legend>Issues</legend>
-                        <IssueTable onChange={onIssueSelectionChange} boardId={boardId} sprintId={sprintId} jiraUrl={jiraUrl}/>
-                    </Form.Item>
-                </Form>
-            </Card>
-        </Fragment>
+        <Row>
+            <Col xs={24} lg={8}>
+                <StyledCard>
+                    <Form layout={'vertical'}>
+                        <Form.Item>
+                            <legend>Team</legend>
+                            <TeamSelectBox value={boardId} />
+                        </Form.Item>
+                        <Form.Item>
+                            <legend>Sprints</legend>
+                            <SprintList value={sprintId} boardId={boardId} />
+                        </Form.Item>
+                    </Form>
+                </StyledCard>
+            </Col>
+            <Col xs={24} lg={16}>
+                <StyledCard
+                    actions={[
+                        <Button disabled={isNoIssueSelected()} onClick={onDownloadClick}>Download PDF</Button>,
+                        <Button disabled={isNoIssueSelected()} onClick={onOpenClick}>Open PDF in new Tab</Button>
+                    ]}
+                >
+                    <Form layout={'vertical'}>
+                        <Form.Item>
+                            <legend>Issues</legend>
+                            <IssueTable
+                                onChange={onIssueSelectionChange}
+                                boardId={boardId}
+                                sprintId={sprintId}
+                                jiraUrl={jiraUrl}
+                            />
+                        </Form.Item>
+                    </Form>
+                </StyledCard>
+            </Col>
+        </Row>
     );
 };
 
