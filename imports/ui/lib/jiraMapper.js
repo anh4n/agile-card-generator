@@ -101,7 +101,7 @@ const getIssueTypeStyle = (issuetype) => {
     }
 };
 
-const getText = (text) => {
+const getText = (text = '') => {
     return text.trim()
         .replace(/[\\]/g, '\\\\')
         .replace(/[\"]/g, '\\\"')
