@@ -6,12 +6,12 @@ import 'pdfmake/build/vfs_fonts';
 import { handlebarsMapper } from '../../lib/jiraMapper';
 import { isJsonString } from '../../lib/jsonHelper';
 
-export const PdfPreview = ({ value, styles, boardId, isStory }) => {
+export const PdfPreview = ({ value, styles, isStory }) => {
 
     const [dataUrl, setDataUrl] = useState('');
     let issue = {};
 
-    if(isStory) {
+    if (isStory) {
         issue = {
             key: 1,
             issuekey: 'JIRAISSUE-1',
@@ -48,7 +48,7 @@ export const PdfPreview = ({ value, styles, boardId, isStory }) => {
     const isValidJson = isJsonString(null, styles);
 
     if (!isValidJson) {
-        issueTemplate ={
+        issueTemplate = {
             text: 'Syntax ERROR in Styles',
             fontSize: 30,
             alignment: 'center',
@@ -85,6 +85,5 @@ PdfPreview.defaultProps = {
 PdfPreview.propTypes = {
     value: PropTypes.string,
     styles: PropTypes.string,
-    boardId: PropTypes.number,
     isStory: PropTypes.bool
 };

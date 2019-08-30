@@ -9,8 +9,7 @@ import Highlighter from 'react-highlight-words';
 
 import { JiraClient } from '../../../api/jira/jiraClient';
 import { jiraIssueMapper } from '../../lib/jiraMapper';
-import TaskEditModal from './TaskEditModal';
-import StoryEditModal from './StoryEditModal';
+import NavButton from '../lib/NavButton';
 
 const buildFilter = (issues, field) => {
     const list = [...new Set(issues.map(issue => issue[field]))];
@@ -19,7 +18,7 @@ const buildFilter = (issues, field) => {
         text: item,
         value: item
     }));
-}
+};
 
 const getSearchFilter = (dataIndex, title, Wrapper = ({ children }) => (<Fragment children={children} />)) => {
 
@@ -160,13 +159,15 @@ export const IssueTable = (props) => {
         onChange
     };
 
+    const isDisabled = () => boardId === 0;
+
     return (
         <Table
             title={() => (
                 <Fragment>
-                    <StoryEditModal boardId={boardId} />
+                    <NavButton to={`/edit/story-template/${boardId}`} disabled={isDisabled()} icon="edit">Edit Story Template</NavButton>
                     {' '}
-                    <TaskEditModal boardId={boardId} />
+                    <NavButton to={`/edit/task-template/${boardId}`} disabled={isDisabled()} icon="edit">Edit Task Template</NavButton>
                 </Fragment>
             )}
             loading={isLoading}

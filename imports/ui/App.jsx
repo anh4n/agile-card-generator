@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { BrowserRouter } from 'react-router-dom';
 import { Route, Switch } from 'react-router';
@@ -12,6 +12,7 @@ import './styles.css';
 
 import NavBar from './components/NavBar';
 import { routes } from './components/routes'
+import { LocationContext } from './components/lib/LocationContext';
 
 const Logo = styled.div`
     font-size: 24px;
@@ -30,28 +31,33 @@ const Header = styled(Layout.Header)`
 `;
 
 export const App = () => {
+
+    const [pathname, setPathName] = useState('/');
+
     return (
         <BrowserRouter>
-            <Layout>
-                <Header>
-                    <Logo>
-                        <Icon type={'idcard'} /> Agile Card Generator
+            <LocationContext.Provider value={{ pathname, setPathName }}>
+                <Layout>
+                    <Header>
+                        <Logo>
+                            <Icon type={'idcard'} /> Agile Card Generator
                         <Version>2.0.0</Version>
-                    </Logo>
-                    <NavBar />
-                </Header>
-                <Layout.Content>
-                    <Col>
-                        <Switch>
-                            {
-                                routes.map(route => (
-                                    <Route {...route} />
-                                ))
-                            }
-                        </Switch>
-                    </Col>
-                </Layout.Content>
-            </Layout>
+                        </Logo>
+                        <NavBar />
+                    </Header>
+                    <Layout.Content>
+                        <Col>
+                            <Switch>
+                                {
+                                    routes.map(route => (
+                                        <Route {...route} />
+                                    ))
+                                }
+                            </Switch>
+                        </Col>
+                    </Layout.Content>
+                </Layout>
+            </LocationContext.Provider>
         </BrowserRouter>
     );
 };

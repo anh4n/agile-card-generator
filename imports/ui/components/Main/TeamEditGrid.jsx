@@ -1,10 +1,8 @@
 import React, { Fragment } from 'react';
 import { Meteor } from 'meteor/meteor';
 import PropTypes from 'prop-types';
-import Button from 'antd/lib/button';
 
 import { Column } from '../lib/Grid/Column';
-import { ModalDataGrid } from '../lib/Grid/ModalDataGrid';
 import DataGrid from '../lib/Grid/DataGrid';
 
 export const TeamEditGrid = (props) => {
