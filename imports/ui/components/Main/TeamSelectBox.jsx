@@ -5,10 +5,8 @@ import { withRouter } from 'react-router';
 import { withTracker } from 'meteor/react-meteor-data';
 import Select from 'antd/lib/select';
 import Input from 'antd/lib/input';
-import Button from 'antd/lib/button';
 
 import { TeamsCollection } from '../../../api/teams/teamsCollection'
-import { TeamEditGrid } from './TeamEditGrid';
 import NavButton from '../lib/NavButton';
 
 const TeamSelectBox = (props) => {
@@ -25,10 +23,10 @@ const TeamSelectBox = (props) => {
     };
 
     return (
-        <Input.Group compact>
+        <Input.Group compact style={{ display: 'flex' }}>
             <Select
                 value={value ? value : undefined}
-                style={{ width: '238px' }}
+                style={{ flex: 1 }}
                 placeholder={'Choose Team'}
                 onChange={onTeamChange}
             >
