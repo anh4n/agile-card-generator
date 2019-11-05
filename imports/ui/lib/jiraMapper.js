@@ -22,6 +22,7 @@ export const handlebarsMapper = (issue, index, arr, teamName, storyTemplateStrin
             STORY_OR_EPIC_TEXT: getEpicOrStory(issue.epic, issue.parent)
         });
     } catch(err) {
+        console.error(err);
         return {
             text: `Syntax ERROR in Template (${issue.issuekey})`,
             fontSize: 30,
@@ -70,7 +71,7 @@ const getEpicOrStory = (epic, parentIssue) => {
     if (epic) {
         return 'Epic: ' + epic;
     } else if (parentIssue.issuekey) {
-        return 'Story: ' + parentIssue.issuekey + ' - ' + parentIssue.summary;
+        return 'Story: ' + parentIssue.issuekey + ' - ' + getText(parentIssue.summary);
     }
 
     return '';

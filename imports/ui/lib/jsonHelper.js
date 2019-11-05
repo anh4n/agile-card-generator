@@ -8,6 +8,7 @@ export const isJsonString = (rule, value) => {
         const json = JSON.parse(value);
         return (typeof json === 'object');
     } catch (e) {
+        console.error(`Invalid JSON: ${value}`);
         return false;
     }
 }
