@@ -6,7 +6,7 @@
         "antd": "3.20.0",
         "classnames": "2.2.6",
         "codemirror": "^5.48.0",
-        "handlebars": "^4.1.2",
+        "handlebars": "^4.5.3",
         "indexof": "0.0.1",
         "meteor-node-stubs": "0.4.1",
         "nanoid": "^2.0.3",
