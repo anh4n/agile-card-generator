@@ -9,7 +9,7 @@
         "handlebars": "^4.1.2",
         "indexof": "0.0.1",
         "meteor-node-stubs": "0.4.1",
-        "nanoid": "^2.0.3",
+        "nanoid": "^3.1.31",
         "pdfmake": "^0.1.57",
         "prop-types": "^15.7.2",
         "react": "16.8.6",
